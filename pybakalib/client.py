@@ -52,7 +52,7 @@ class BakaClient(object):
 
     @staticmethod
     def _fix_url(url,is_https):
-        if not url.startswith('http') and not is_https:
+        if not url.startswith('http') or not is_https:
             url = 'http://' + url
         url = url.replace('login.aspx', '')
         if not url.endswith('/'):
