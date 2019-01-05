@@ -44,15 +44,15 @@ class ResponseCache(object):
 
 class BakaClient(object):
     def __init__(self, url, cache=ResponseCache()):
-        self.url = BakaClient._fix_url(url)
+        self.url = BakaClient._fix_url(url,url.startswith("https"))
         self.token_perm = None
         self.token = None
         self.__available_modules = set()
         self.__module_cache = cache
 
     @staticmethod
-    def _fix_url(url):
-        if not url.startswith('http'):
+    def _fix_url(url,is_https):
+        if not url.startswith('http') and not is_https:
             url = 'http://' + url
         url = url.replace('login.aspx', '')
         if not url.endswith('/'):
